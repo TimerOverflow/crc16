@@ -1,16 +1,20 @@
 /*********************************************************************************/
 /*
- * Author : Jung Hyun Gu
+ * Author : Jeong Hyun Gu
  * File name : crc16.c
 */
 /*********************************************************************************/
-#include "include/crc16.h"
+#include "crc16.h"
+/*********************************************************************************/
+#if(AVR_CRC16_REVISION_DATE != 20161108)
+#error wrong include file. (crc16.h)
+#endif
 /*********************************************************************************/
 /** Global variable **/
 
 
 /* CRC16 Table High byte */
-const unsigned char __flash CRC16Hi[] = 
+const unsigned char __flash CRC16Hi[] =
 {
 	0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41,
 	0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81, 0x40,
@@ -96,23 +100,13 @@ int Crc16Check(char *BufCurPos, char *BufOffSet, char *BufEnd, int Length)
 		Index = CRCHi ^ *BufCurPos++;
 		CRCHi = CRCLo ^ CRC16Hi[Index];
 		CRCLo = CRC16Lo[Index];
-		
+
 		if(BufCurPos > BufEnd)
 		{
 			BufCurPos = BufOffSet;
 		}
-  }        
-	
+  }
+
   return ((unsigned int) CRCHi << 8 | CRCLo);
-} 
+}
 /*********************************************************************************/
-
-
-
-
-
-
-
-
-
-
