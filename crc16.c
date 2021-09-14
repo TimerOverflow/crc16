@@ -6,7 +6,7 @@
 /*********************************************************************************/
 #include "crc16.h"
 /*********************************************************************************/
-#if(AVR_CRC16_REVISION_DATE != 20190905)
+#if(AVR_CRC16_REVISION_DATE != 20200907)
 #error wrong include file. (crc16.h)
 #endif
 /*********************************************************************************/
@@ -14,7 +14,12 @@
 
 
 /* CRC16 Table High byte */
-const unsigned char CRC16Hi[] =
+#if(__CRC16_TARGET_IAR_AVR__ == true)
+#include <ina90.h>
+const tU8 __flash CRC16Hi[] =
+#else
+const tU8 CRC16Hi[] =
+#endif
 {
 	0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41,
 	0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81, 0x40,
@@ -51,7 +56,11 @@ const unsigned char CRC16Hi[] =
 };
 
 /* CRC16 Table Low byte */
-const unsigned char CRC16Lo[] =
+#if(__CRC16_TARGET_IAR_AVR__ == true)
+const tU8 __flash CRC16Lo[] =
+#else
+const tU8 CRC16Lo[] =
+#endif
 {
 	0x00, 0xC0, 0xC1, 0x01, 0xC3, 0x03, 0x02, 0xC2,
 	0xC6, 0x06, 0x07, 0xC7, 0x05, 0xC5, 0xC4, 0x04,
@@ -87,26 +96,25 @@ const unsigned char CRC16Lo[] =
 	0x82, 0x42, 0x43, 0x83, 0x41, 0x81, 0x80, 0x40
 };
 /*********************************************************************************/
-tU16 Crc16Check(char *BufCurPos, char *BufOffSet, char *BufEnd, tU16 Length)
+tU16 Crc16Check(tU8 *BufCurPos, tU8 *BufOffSet, tU8 *BufEnd, tU16 Length)
 {
-	unsigned char CRCHi ;
-	unsigned char CRCLo ;
-	tU16  Index ;
+	tU8 CRCHi, CRCLo;
+	tU16  Index;
 
-	CRCHi = 0xFF ;
-  CRCLo = 0xFF ;
-  while(Length--)
+	CRCHi = 0xFF;
+	CRCLo = 0xFF;
+	while(Length--)
 	{
-		Index = CRCHi ^ *BufCurPos++;
+		Index = CRCHi ^ *BufCurPos;
 		CRCHi = CRCLo ^ CRC16Hi[Index];
 		CRCLo = CRC16Lo[Index];
 
-		if(BufCurPos > BufEnd)
+		if(++BufCurPos > BufEnd)
 		{
 			BufCurPos = BufOffSet;
 		}
-  }
+	}
 
-  return ((tU16) CRCHi << 8 | CRCLo);
+	return (tU16) (CRCHi << 8) + CRCLo;
 }
 /*********************************************************************************/
