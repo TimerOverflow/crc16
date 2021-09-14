@@ -6,7 +6,7 @@
 /*********************************************************************************/
 #include "crc16.h"
 /*********************************************************************************/
-#if(AVR_CRC16_REVISION_DATE != 20161108)
+#if(AVR_CRC16_REVISION_DATE != 20180502)
 #error wrong include file. (crc16.h)
 #endif
 /*********************************************************************************/
@@ -14,7 +14,7 @@
 
 
 /* CRC16 Table High byte */
-const unsigned char __flash CRC16Hi[] =
+const unsigned char CRC16Hi[] =
 {
 	0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41,
 	0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81, 0x40,
@@ -51,7 +51,7 @@ const unsigned char __flash CRC16Hi[] =
 };
 
 /* CRC16 Table Low byte */
-const unsigned char __flash CRC16Lo[] =
+const unsigned char CRC16Lo[] =
 {
 	0x00, 0xC0, 0xC1, 0x01, 0xC3, 0x03, 0x02, 0xC2,
 	0xC6, 0x06, 0x07, 0xC7, 0x05, 0xC5, 0xC4, 0x04,
