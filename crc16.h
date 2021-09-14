@@ -7,10 +7,15 @@
 #ifndef __CRC16_H__
 #define	__CRC16_H__
 /*********************************************************************************/
-#define AVR_CRC16_REVISION_DATE		20180502
+#include "SysTypedef.h"
+/*********************************************************************************/
+#define AVR_CRC16_REVISION_DATE		20190905
 /*********************************************************************************/
 /** REVISION HISTORY **/
 /*
+	2019. 09. 05.					- SysTypedef 적용.
+	Jeong Hyun Gu
+
 	2018. 05. 02.					- CRC16 테이블 변수 타입 변경.
 	Jeong Hyun Gu
 
@@ -37,7 +42,7 @@
 /*********************************************************************************/
 /**Function**/
 
-int Crc16Check(char *BufCurPos, char *BufOffSet, char *BufEnd, int Length);
+tU16 Crc16Check(char *BufCurPos, char *BufOffSet, char *BufEnd, tU16 Length);
 
 /*********************************************************************************/
 #endif //__CRC16_H__

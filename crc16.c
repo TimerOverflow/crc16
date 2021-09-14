@@ -6,7 +6,7 @@
 /*********************************************************************************/
 #include "crc16.h"
 /*********************************************************************************/
-#if(AVR_CRC16_REVISION_DATE != 20180502)
+#if(AVR_CRC16_REVISION_DATE != 20190905)
 #error wrong include file. (crc16.h)
 #endif
 /*********************************************************************************/
@@ -87,11 +87,11 @@ const unsigned char CRC16Lo[] =
 	0x82, 0x42, 0x43, 0x83, 0x41, 0x81, 0x80, 0x40
 };
 /*********************************************************************************/
-int Crc16Check(char *BufCurPos, char *BufOffSet, char *BufEnd, int Length)
+tU16 Crc16Check(char *BufCurPos, char *BufOffSet, char *BufEnd, tU16 Length)
 {
 	unsigned char CRCHi ;
 	unsigned char CRCLo ;
-	unsigned int  Index ;
+	tU16  Index ;
 
 	CRCHi = 0xFF ;
   CRCLo = 0xFF ;
@@ -107,6 +107,6 @@ int Crc16Check(char *BufCurPos, char *BufOffSet, char *BufEnd, int Length)
 		}
   }
 
-  return ((unsigned int) CRCHi << 8 | CRCLo);
+  return ((tU16) CRCHi << 8 | CRCLo);
 }
 /*********************************************************************************/
