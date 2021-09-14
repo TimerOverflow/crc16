@@ -7,10 +7,13 @@
 #ifndef __CRC16_H__
 #define	__CRC16_H__
 /*********************************************************************************/
-#define AVR_CRC16_REVISION_DATE		20161108
+#define AVR_CRC16_REVISION_DATE		20180502
 /*********************************************************************************/
 /** REVISION HISTORY **/
 /*
+	2018. 05. 02.					- CRC16 테이블 변수 타입 변경.
+	Jeong Hyun Gu
+
 	2016. 11. 08.					- revision valid check 추가.
 	Jung Hyun Gu
 
