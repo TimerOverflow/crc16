@@ -9,25 +9,33 @@
 /*********************************************************************************/
 #include "SysTypedef.h"
 /*********************************************************************************/
-#define AVR_CRC16_REVISION_DATE		20190905
+#define AVR_CRC16_REVISION_DATE		20200907
 /*********************************************************************************/
 /** REVISION HISTORY **/
 /*
-	2019. 09. 05.					- SysTypedef 적용.
+	2020. 09. 07.					- __CRC16_TARGET_IAR_AVR__ 추가. AVR 타겟일 경우 crc테이블을 플래쉬 메모리에 할당.
+	Jeong Hyun Gu
+
+	2019. 10. 07.					- 'SysTypedef.h' 적용.
 	Jeong Hyun Gu
 
 	2018. 05. 02.					- CRC16 테이블 변수 타입 변경.
 	Jeong Hyun Gu
 
 	2016. 11. 08.					- revision valid check 추가.
-	Jung Hyun Gu
+	Jeong Hyun Gu
 
 	2016. 10. 28.					- 초기버전.
-	Jung Hyun Gu
+	Jeong Hyun Gu
 */
 /*********************************************************************************/
 /**Define**/
 
+#define true		1
+#define	false		0
+#define	null		0
+
+#define __CRC16_TARGET_IAR_AVR__			true
 
 /*********************************************************************************/
 /**Enum**/
@@ -42,7 +50,7 @@
 /*********************************************************************************/
 /**Function**/
 
-tU16 Crc16Check(char *BufCurPos, char *BufOffSet, char *BufEnd, tU16 Length);
+tU16 Crc16Check(tU8 *BufCurPos, tU8 *BufOffSet, tU8 *BufEnd, tU16 Length);
 
 /*********************************************************************************/
 #endif //__CRC16_H__
